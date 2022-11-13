@@ -1,0 +1,9 @@
+{
+    "maxIterations": 500,
+    "stepSize": 0.07,
+    "diskInnerRadius": 2,
+    "diskOuterRadius": 70,
+    "diskTemperature": 4500,
+    "resolution": [1920, 1080],
+    "camera": [0, 2, -12]
+}
