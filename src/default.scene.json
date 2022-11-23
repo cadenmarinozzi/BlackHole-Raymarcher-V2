@@ -8,14 +8,14 @@
     "path": [
         {
             "start": {
-                "position": [-2, 2, -12],
+                "position": [0, 2, -12],
                 "rotation": [0, 0, 0]
             },
             "end": {
-                "position": [-2, 0.1, -12],
+                "position": [0, 0, 1],
                 "rotation": [2, 0, 2]
             },
-            "step": 0.005
+            "step": 0.001
         }
     ]
 }
