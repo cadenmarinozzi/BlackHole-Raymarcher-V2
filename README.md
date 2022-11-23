@@ -26,14 +26,21 @@ The scene configuration is a JSON file, which contains the following properties:
 - `diskInnerRadius`: The inner radius of the accretion disk. Ex: `2`,
 - `diskOuterRadius`: The outer radius of the accretion disk. Ex: `70`,
 - `diskTemperature`: The temperature of the blackhole. Ex: `4500`,
-- `path`: The path the camera should follow. Ex: ```[
+- `path`: The path the camera should follow and rotate on. Ex: ```[
         {
-            "start": [0, 2, -12],
-            "end": [0, -2, -16],
-            "step": 0.1
+            "start": {
+                "position": [-2, 2, -12],
+                "rotation": [0, 0, 0]
+            },
+            "end": {
+                "position": [-2, 0.1, -12],
+                "rotation": [2, 0, 2]
+            },
+            "step": 0.005
         }
     ]```
-- `camera`: If no path is specified, the camera will be static. Ex: `[0, 2, -12]`,
+- `camera`: If no path is specified, this will be used as the camera position. Ex: `[0, 2, -12]`,
+- `camera`: If no path is specified, this will be used as the rotation. Ex: `[2, 0, 2]`,
 
 # Processing
 

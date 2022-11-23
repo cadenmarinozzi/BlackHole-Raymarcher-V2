@@ -1,9 +1,21 @@
 {
-    "maxIterations": 500,
+    "maxIterations": 400,
     "stepSize": 0.07,
     "diskInnerRadius": 2,
     "diskOuterRadius": 70,
     "diskTemperature": 4500,
     "resolution": [1920, 1080],
-    "camera": [0, 2, -12]
+    "path": [
+        {
+            "start": {
+                "position": [-2, 2, -12],
+                "rotation": [0, 0, 0]
+            },
+            "end": {
+                "position": [-2, 0.1, -12],
+                "rotation": [2, 0, 2]
+            },
+            "step": 0.005
+        }
+    ]
 }

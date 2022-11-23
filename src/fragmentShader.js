@@ -8,6 +8,7 @@ export default `
     uniform float uDiskInnerRadius;
     uniform float uDiskOuterRadius;
     uniform float uDiskTemperature;
+    uniform vec3 uRotation;
 
     varying vec2 vUv;
 
@@ -488,6 +489,26 @@ export default `
         return luminocity;
     }
 
+    vec3 rotate(vec3 v, vec3 angle) {
+        float x = v.x;
+        float y = v.y;
+        float z = v.z;
+
+        float cx = cos(angle.x);
+        float cy = cos(angle.y);
+        float cz = cos(angle.z);
+
+        float sx = sin(angle.x);
+        float sy = sin(angle.y);
+        float sz = sin(angle.z);
+
+        float nx = cy * (sz * y + cz * x) - sy * z;
+        float ny = sx * (cy * z + sy * (sz * y + cz * x)) + cx * (cz * y - sz * x);
+        float nz = cx * (cy * z + sy * (sz * y + cz * x)) - sx * (cz * y - sz * x);
+
+        return vec3(nx, ny, nz);
+    }
+
     float hash(float n) { 
         return fract(sin(n) * 753.5453123); 
     }
@@ -601,6 +622,9 @@ export default `
 
         // Ray direction should be normalized and point towards the uv
         vec3 rayDirection = normalize(vec3(uv, 1));
+        
+        rayDirection = rotate(rayDirection, uRotation);
+        rayOrigin = rotate(rayOrigin, uRotation);
 
         vec3 color = rayMarch(rayOrigin, rayDirection);
         // Scale down the color to avoid overflow, 1e-7 for a less saturated image, 1e-6 for a brighter image

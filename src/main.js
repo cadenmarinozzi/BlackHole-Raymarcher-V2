@@ -30,6 +30,9 @@ const canvasMaterial = new THREE.ShaderMaterial({
 		uCameraPosition: {
 			value: new THREE.Vector3(0, 0, 0),
 		},
+		uRotation: {
+			value: new THREE.Vector3(0, 0, 0),
+		},
 		uMaxIterations: {
 			value: sceneJson.maxIterations,
 		},
@@ -59,24 +62,56 @@ function lerp(start, end, t) {
 
 let frames = [];
 
-sceneJson.path.forEach((path, i) => {
-	for (let t = 0; t < 1; t += path.step) {
-		const start = path.start ?? simulation.path[i - 1].end;
-		const x = lerp(start[0], path.end[0], t);
-		const y = lerp(start[1], path.end[1], t);
-		const z = lerp(start[2], path.end[2], t);
+if (sceneJson.path) {
+	sceneJson.path.forEach((path, i) => {
+		for (let t = 0; t < 1; t += path.step) {
+			const start = path.start ?? simulation.path[i - 1].end;
+			const end = path.end;
+			const x = lerp(start.position[0], end.position[0], t);
+			const y = lerp(start.position[1], end.position[1], t);
+			const z = lerp(start.position[2], end.position[2], t);
+			const rotX = lerp(start.rotation[0], end.rotation[0], t);
+			const rotY = lerp(start.rotation[1], end.rotation[1], t);
+			const rotZ = lerp(start.rotation[2], end.rotation[2], t);
 
-		canvasMaterial.uniforms.uCameraPosition.value = new THREE.Vector3(
-			x,
-			y,
-			z
-		);
-		renderer.render(scene, camera);
+			canvasMaterial.uniforms.uCameraPosition.value = new THREE.Vector3(
+				x,
+				y,
+				z
+			);
+			canvasMaterial.uniforms.uRotation.value = new THREE.Vector3(
+				rotX,
+				rotY,
+				rotZ
+			);
+			renderer.render(scene, camera);
 
-		const data = renderer.domElement.toDataURL('image/png');
-		frames.push(data);
-	}
-});
+			const data = renderer.domElement.toDataURL('image/png');
+			frames.push(data);
+		}
+	});
+} else {
+	renderer.domElement.style.opacity = 1;
+	document.querySelector('.images').style.opacity = 0;
+
+	const cameraPosition = sceneJson.camera;
+	const rotation = sceneJson.rotation;
+	canvasMaterial.uniforms.uCameraPosition.value = new THREE.Vector3(
+		cameraPosition[0],
+		cameraPosition[1],
+		cameraPosition[2]
+	);
+	canvasMaterial.uniforms.uRotation.value = new THREE.Vector3(
+		rotation[0],
+		rotation[1],
+		rotation[2]
+	);
+
+	renderer.render(scene, camera);
+
+	const data = renderer.domElement.toDataURL('image/png');
+	frames.push(data);
+}
 
 for (let i = 0; i < frames.length; i++) {
 	const image = new Image();
