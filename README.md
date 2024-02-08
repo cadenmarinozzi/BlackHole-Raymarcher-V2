@@ -1,6 +1,6 @@
 # Black Hole Ray Marcher V2
 
-A black hole ray marcher with gravitational warping, doppler shifting, gravitational shifting, and blackbody temperature. This is a rewrite of my [first black hole ray marcher](https://github.com/nekumelon/BlackHoleRaytracer).
+A black hole ray marcher with gravitational warping, doppler shifting, gravitational shifting, and blackbody temperature. This is a rewrite of my [first black hole ray marcher](https://github.com/cadenmarinozzi/BlackHoleRaytracer).
 
 <img src="assets/INFO.png" />
 
@@ -59,4 +59,4 @@ See the [LICENSE](LICENSE.md) file for the license.
 
 # Author
 
-Created by @nekumelon
+Created by @cadenmarinozzi
